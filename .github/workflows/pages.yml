@@ -53,7 +53,7 @@ jobs:
           mkdir _site
           cp -R site/. _site/
           cp -R dist _site/dist
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
       - id: deployment
