@@ -17,6 +17,13 @@ function run(directory, ...arguments_) {
   });
 }
 
+function runNpm(directory, ...arguments_) {
+  return spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", arguments_, {
+    cwd: directory,
+    encoding: "utf8",
+  });
+}
+
 async function sandbox() {
   const directory = await mkdtemp(join(os.tmpdir(), "mr-template-"));
   await cp(root, directory, {
@@ -24,6 +31,11 @@ async function sandbox() {
     filter: (source) =>
       ![".git", "node_modules", ".secrets", "dist", "extensions"].includes(source.split("/").pop()),
   });
+  const configPath = join(directory, "repository.config.json");
+  const config = JSON.parse(await readFile(configPath, "utf8"));
+  config.templateMode = true;
+  config.publisherPublicKey = "";
+  await writeFile(configPath, `${JSON.stringify(config, null, 2)}\n`);
   await mkdir(join(directory, "extensions", "content"), { recursive: true });
   await symlink(join(root, "node_modules"), join(directory, "node_modules"), "dir");
   return directory;
@@ -84,6 +96,8 @@ test("fresh clone can generate, bundle, sign, and detect tampering", async () =>
     0,
   );
 
+  result = runNpm(directory, "run", "conformance");
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
   assert.equal(run(directory, "check").status, 0);
   assert.equal(run(directory, "bundle").status, 0);
   const packagePath = join(

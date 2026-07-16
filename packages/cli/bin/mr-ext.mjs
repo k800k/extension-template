@@ -16,6 +16,7 @@ import { dirname, extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { build } from "esbuild";
+import { format } from "oxfmt";
 
 import {
   API_VERSION,
@@ -41,6 +42,17 @@ const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 async function writeJSON(path, value) {
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, json(value));
+}
+
+async function writeFormatted(path, source) {
+  const result = await format(path, source, { sortImports: true });
+  if (result.errors.length > 0) {
+    throw new Error(
+      `Could not format ${relative(ROOT, path)}: ${result.errors.map((error) => error.message).join(", ")}`,
+    );
+  }
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, result.code);
 }
 
 async function readConfig() {
@@ -122,27 +134,30 @@ async function createScaffold() {
   const config = await readConfig();
   await mkdir(join(directory, "src"), { recursive: true });
   await mkdir(join(directory, "tests"), { recursive: true });
-  await writeJSON(join(directory, "extension.json"), {
-    id,
-    name,
-    description: `MangaReader content extension for ${host}.`,
-    kind: "content",
-    apiVersion: API_VERSION,
-    version: "0.1.0",
-    language: "en",
-    languages: ["en"],
-    contentRating: "SAFE",
-    availability: "approvalRequired",
-    capabilities: ["search", "details", "installments", "imageSequence"],
-    permissions: ["network", "rateLimiting", "redactedLogging"],
-    allowedHTTPSHosts: [host],
-    authenticationModes: ["none"],
-    developers: [{ name: config.publisherName }],
-    iconFile: "icon.svg",
-    sourceFile: "src/main.ts",
-    license: "GPL-3.0-or-later",
-  });
-  await writeFile(join(directory, "src", "main.ts"), scaffoldSource(id));
+  await writeFormatted(
+    join(directory, "extension.json"),
+    json({
+      id,
+      name,
+      description: `MangaReader content extension for ${host}.`,
+      kind: "content",
+      apiVersion: API_VERSION,
+      version: "0.1.0",
+      language: "en",
+      languages: ["en"],
+      contentRating: "SAFE",
+      availability: "approvalRequired",
+      capabilities: ["search", "details", "installments", "imageSequence"],
+      permissions: ["network", "rateLimiting", "redactedLogging"],
+      allowedHTTPSHosts: [host],
+      authenticationModes: ["none"],
+      developers: [{ name: config.publisherName }],
+      iconFile: "icon.svg",
+      sourceFile: "src/main.ts",
+      license: "GPL-3.0-or-later",
+    }),
+  );
+  await writeFormatted(join(directory, "src", "main.ts"), scaffoldSource(id));
   await writeFile(join(directory, "icon.svg"), neutralSVG(id));
   await writeFile(
     join(directory, "specification.md"),
@@ -160,7 +175,7 @@ async function createScaffold() {
     join(directory, "RIGHTS.md"),
     `<!-- SPDX-License-Identifier: GPL-3.0-or-later -->\n\n# ${name} rights record\n\nStatus: **authorization review pending**. Record the service terms, API or access authorization, content rights, trademark decision, report contact, reviewer, and review date before activation.\n`,
   );
-  await writeFile(
+  await writeFormatted(
     join(directory, "tests", "contract.test.ts"),
     `/* SPDX-License-Identifier: GPL-3.0-or-later */\nimport assert from "node:assert/strict";\nimport test from "node:test";\n\nimport extension from "../src/main.js";\n\nvoid test(${JSON.stringify(`${id} exports its declared identity`)}, () => {\n  assert.equal(extension.id, ${JSON.stringify(id)});\n  assert.equal(extension.apiVersion, "1.0");\n});\n`,
   );
