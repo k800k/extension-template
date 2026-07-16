@@ -1,0 +1,20 @@
+{
+  "id": "ExampleSource",
+  "name": "Example Source",
+  "description": "Fixture-backed MangaReader content extension used only for template tests.",
+  "kind": "content",
+  "apiVersion": "1.0",
+  "version": "1.0.0",
+  "language": "en",
+  "languages": ["en"],
+  "contentRating": "SAFE",
+  "availability": "approvalRequired",
+  "capabilities": ["search", "details", "installments", "imageSequence"],
+  "permissions": ["network", "rateLimiting", "redactedLogging"],
+  "allowedHTTPSHosts": ["example.com"],
+  "authenticationModes": ["none"],
+  "developers": [{ "name": "MangaReader Extension Contributors" }],
+  "iconFile": "icon.svg",
+  "sourceFile": "src/main.ts",
+  "license": "GPL-3.0-or-later"
+}

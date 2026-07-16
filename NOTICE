@@ -1,0 +1,16 @@
+MangaReader Extension Template
+Copyright 2026 MangaReader Extension Contributors
+SPDX-License-Identifier: GPL-3.0-or-later
+
+This repository includes configuration and workflow structure adapted from the
+Inkdex template-extensions project:
+
+  Upstream: https://github.com/inkdex/template-extensions
+  Branch: 0.9/stable
+  Commit: 7408965ea41d31930f8b22bf2fa0867630b70c23
+  Adapted paths: package.json, tsconfig.json, .oxfmtrc.json, .oxlintrc.json,
+                 .github/, .husky/, .vscode/
+
+Copyright © 2025-2026 Inkdex contributors. Those portions and this derivative
+work are distributed under GPL-3.0-or-later. Paperback-specific source code and
+dependencies are not included.

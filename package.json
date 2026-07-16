@@ -1,0 +1,40 @@
+{
+  "name": "@mangareader/extension-template",
+  "version": "1.0.0",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "workspaces": [
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "setup": "node packages/cli/bin/mr-ext.mjs setup",
+    "new": "node packages/cli/bin/mr-ext.mjs new",
+    "check": "node packages/cli/bin/mr-ext.mjs check",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --type-aware --fix",
+    "lint:check": "oxlint --type-aware --deny-warnings",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "conformance": "npm run typecheck && npm run lint:check && npm run format:check",
+    "test": "node scripts/test.mjs",
+    "bundle": "node packages/cli/bin/mr-ext.mjs bundle",
+    "publish": "node packages/cli/bin/mr-ext.mjs publish",
+    "publish:dry-run": "node packages/cli/bin/mr-ext.mjs publish",
+    "serve": "node packages/cli/bin/mr-ext.mjs serve",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.25.0",
+    "husky": "^9.1.7",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
+    "oxlint-tsgolint": "^0.24.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

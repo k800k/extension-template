@@ -1,0 +1,20 @@
+node_modules/
+.cache/
+.tmp/
+.secrets/
+coverage/
+*.log
+*.tsbuildinfo
+.DS_Store
+publisher-key*
+*.pem
+*.key
+
+# Generated publication output is rebuilt by CI.
+dist/v1/stable/icons/*
+dist/v1/stable/packages/*
+dist/v1/stable/catalog.json
+dist/v1/stable/mangareader-repository.json
+dist/v1/stable/mangareader-repository.sig
+!dist/v1/stable/icons/.gitkeep
+!dist/v1/stable/packages/.gitkeep

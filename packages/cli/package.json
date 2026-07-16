@@ -1,0 +1,12 @@
+{
+  "name": "@mangareader/extension-cli",
+  "version": "1.0.0",
+  "license": "GPL-3.0-or-later",
+  "bin": {
+    "mr-ext": "./bin/mr-ext.mjs"
+  },
+  "type": "module",
+  "dependencies": {
+    "@mangareader/extension-sdk": "1.0.0"
+  }
+}

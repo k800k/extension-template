@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MangaReader Extension API v1 repository" />
+    <title>MangaReader Extensions</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">MangaReader Extension API v1</p>
+        <h1 id="repository-name">Extension repository</h1>
+        <p id="repository-description">Loading repository metadata…</p>
+      </header>
+
+      <section id="template-warning" class="notice" hidden>
+        <strong>Template mode</strong>
+        <p>
+          This site is developer documentation. Clone the template and run
+          <code>npm run setup</code> before publishing an installable repository.
+        </p>
+      </section>
+
+      <section>
+        <h2>Repository URL</h2>
+        <code id="repository-url">Loading…</code>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2>Content extensions</h2>
+          <span id="source-count">0</span>
+        </div>
+        <div id="sources" class="sources"></div>
+        <p id="empty-state">No content extensions are published yet.</p>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

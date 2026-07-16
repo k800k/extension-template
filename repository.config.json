@@ -1,0 +1,15 @@
+{
+  "templateMode": true,
+  "id": "example.extensions",
+  "name": "Example MangaReader Extensions",
+  "description": "A MangaReader Extension API v1 repository created from k800k/extension-template.",
+  "owner": "OWNER",
+  "repository": "REPOSITORY",
+  "homepage": "https://OWNER.github.io/REPOSITORY/",
+  "repositoryURL": "https://OWNER.github.io/REPOSITORY/dist/v1/stable/",
+  "privacyURL": "https://github.com/OWNER/REPOSITORY/blob/main/PRIVACY.md",
+  "reportURL": "https://github.com/OWNER/REPOSITORY/issues/new/choose",
+  "installBaseURL": "https://kayvenchen.github.io/mangareader/repository/install",
+  "publisherName": "Extension Publisher",
+  "publisherPublicKey": ""
+}

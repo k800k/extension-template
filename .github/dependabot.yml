@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Adapted from Inkdex template-extensions at commit 7408965ea41d31930f8b22bf2fa0867630b70c23.
+
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      manga-reader-toolchain:
+        patterns:
+          - "@mangareader/*"
+          - esbuild
+          - tsx
+          - typescript
+      minor-patch:
+        update-types: [minor, patch]
+      major:
+        update-types: [major]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
