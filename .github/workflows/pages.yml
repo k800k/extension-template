@@ -47,7 +47,7 @@ jobs:
             chmod 600 "$key_path"
             npm run publish -- --key "$key_path"
           fi
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - name: Assemble Pages artifact
         run: |
           mkdir _site
