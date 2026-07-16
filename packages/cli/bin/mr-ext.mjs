@@ -162,7 +162,7 @@ async function createScaffold() {
   );
   await writeFile(
     join(directory, "tests", "contract.test.ts"),
-    `/* SPDX-License-Identifier: GPL-3.0-or-later */\nimport assert from "node:assert/strict";\nimport test from "node:test";\n\nimport extension from "../src/main.js";\n\ntest(${JSON.stringify(`${id} exports its declared identity`)}, () => {\n  assert.equal(extension.id, ${JSON.stringify(id)});\n  assert.equal(extension.apiVersion, "1.0");\n});\n`,
+    `/* SPDX-License-Identifier: GPL-3.0-or-later */\nimport assert from "node:assert/strict";\nimport test from "node:test";\n\nimport extension from "../src/main.js";\n\nvoid test(${JSON.stringify(`${id} exports its declared identity`)}, () => {\n  assert.equal(extension.id, ${JSON.stringify(id)});\n  assert.equal(extension.apiVersion, "1.0");\n});\n`,
   );
   console.log(`Created ${relative(ROOT, directory)}`);
 }

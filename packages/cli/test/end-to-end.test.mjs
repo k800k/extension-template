@@ -2,7 +2,7 @@
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { cp, lstat, mkdtemp, readFile, readdir, symlink, writeFile } from "node:fs/promises";
+import { cp, lstat, mkdir, mkdtemp, readFile, readdir, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -22,8 +22,9 @@ async function sandbox() {
   await cp(root, directory, {
     recursive: true,
     filter: (source) =>
-      ![".git", "node_modules", ".secrets", "dist"].includes(source.split("/").pop()),
+      ![".git", "node_modules", ".secrets", "dist", "extensions"].includes(source.split("/").pop()),
   });
+  await mkdir(join(directory, "extensions", "content"), { recursive: true });
   await symlink(join(root, "node_modules"), join(directory, "node_modules"), "dir");
   return directory;
 }
